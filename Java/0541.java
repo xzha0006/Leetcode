@@ -21,3 +21,29 @@ class Solution {
         return new String(chars);
     }
 }
+
+class Solution {
+    public String reverseStr(String s, int k) {
+        if (s == null || s.length() == 0 || k <= 1) return s;
+        
+        char[] c = s.toCharArray();
+        
+        for (int start = 0; start < c.length; start += 2 * k) {
+            int end = Math.min(c.length - 1, start + k - 1);
+            swap(c, start, end);
+        }
+        
+        return new String(c);
+    }
+    
+    private void swap(char[] c, int i, int j) {
+        while (i < j) {
+            char temp = c[i];
+            c[i] = c[j];
+            c[j] = temp;
+                
+            i++;
+            j--;
+        }
+    }
+}
