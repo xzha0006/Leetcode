@@ -3,11 +3,11 @@ class Solution {
         int n = heights.length;
         int area = 0;
         for (int i = 0; i < n; ++i) {
-            int j;
-            for (j = i; j < n; ++j) {
-                if (heights[j] < heights[i]) break;
+            int len = Integer.MAX_VALUE;
+            for (int j = i; j < n; ++j) {
+                len = Math.min(heights[j], len);
+                area = Math.max(area, len * (j - i + 1));
             }
-            area = Math.max(area, heights[i] * (j - i));
         }
         return area;
     }
