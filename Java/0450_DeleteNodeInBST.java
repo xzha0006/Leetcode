@@ -8,7 +8,6 @@
  * }
  */
 class Solution {
-    TreeNode prev = null;
     public TreeNode deleteNode(TreeNode root, int key) {
         if (root == null) return null;
         if (root.val > key) {
@@ -20,19 +19,24 @@ class Solution {
             return root;
         }
         else {
-            if (root.left == null && root.right == null) {
-                return null;
-            } else if (root.left == null) {
-                return root.right;
-            } else if (root.right == null) {
+            if (root.left == null && root.right == null) return null;
+            else if (root.left != null && root.right != null) {
+                int min = findMinValue(root.right);
+                root.val = min;
+                root.right = deleteNode(root.right, min);
+            } else if (root.left != null) {
                 return root.left;
             } else {
-                TreeNode head = root.right;
-                while (head.left != null) head = head.left;
-                root.val = head.val;
-                root.right = deleteNode(root.right, head.val);
-                return root;
+                return root.right;
             }
         }
+        
+        return root;
+    }
+    
+    private int findMinValue(TreeNode root) {
+        if (root == null) return -1;
+        if (root.left == null) return root.val;
+        return findMinValue(root.left);
     }
 }
