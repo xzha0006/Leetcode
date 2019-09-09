@@ -1,0 +1,12 @@
+class Solution(object):
+    def sortArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        if (len(nums) < 2):
+            return nums;
+        left = [i for i in nums[:-1] if i <= nums[-1]]
+        right = [j for j in nums[:-1] if j > nums[-1]]
+        return self.sortArray(left) + [nums[-1]] + self.sortArray(right);
+        
