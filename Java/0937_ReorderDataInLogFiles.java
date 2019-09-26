@@ -4,19 +4,19 @@ class Solution {
         public int compare(String log1, String log2) {
             int idx1 = log1.indexOf(" ");
             int idx2 = log2.indexOf(" ");
-            String identifier1 = log1.substring(0, idx1);
-            String identifier2 = log2.substring(0, idx2);
-            int idfRes = identifier1.compareTo(identifier2);
-            String body1 = log1.substring(idx1);
-            String body2 = log2.substring(idx2);
-            if (body1.matches("[a-z\\ ]+") && !body2.matches("[a-z\\ ]+")) {
+            int idfRes = log1.compareTo(log2);
+            String body1 = log1.substring(idx1 + 1);
+            String body2 = log2.substring(idx2 + 1);
+            boolean isDigit1 = body1.charAt(0) <= '9';
+            boolean isDigit2 = body2.charAt(0) <= '9';
+            if (!isDigit1 && isDigit2) {
                 return -1;
             }
-            else if (body2.matches("[a-z\\ ]+") && !body1.matches("[a-z\\ ]+")) {
+            else if (isDigit1 && !isDigit2) {
                 return 1;
             }
             
-            else if (body2.matches("[a-z\\ ]+") && body1.matches("[a-z\\ ]+")) {
+            else if (!isDigit1 && !isDigit2) {
                 int result = body1.compareTo(body2);
                 return result != 0 ? result : idfRes;
             }
