@@ -1,3 +1,32 @@
+// qp solution
+class Solution {
+    public int[][] kClosest(int[][] points, int K) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>(){
+            @Override
+            public int compare(int[] p1, int[] p2) {
+                return dist(p1) - dist(p2);
+            }
+        });
+        
+        for (int i = 0; i < points.length; ++i) {
+            pq.offer(points[i]);
+        }
+        
+        int[][] result = new int[K][2];
+        
+        for (int j = 0; j < K; ++j) {
+            int[] point = pq.poll();
+            result[j][0] = point[0];
+            result[j][1] = point[1];
+        }
+        return result;
+    }
+    
+    private int dist(int[] p) {
+        return p[0] * p[0] + p[1] * p[1];
+    }
+}
+//sort solution
 class Solution {
     public int[][] kClosest(int[][] points, int K) {
         Integer[][] distances = new Integer[points.length][2];
